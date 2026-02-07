@@ -15,7 +15,7 @@ const Header = () => {
       variants={containerVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
-      className="fixed top-0 left-0 z-30 w-full overflow-x-hidden"
+      className="fixed top-0 left-0 z-30 w-full overflow-x-clip"
     >
       <motion.div
         variants={fadeBottomSlide}
