@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary-color: #10ff4c;
+  --footer-color: #151515;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@font-face {
+  font-family: lora-regular;
+  src: url(../assets/fonts/Lora/static/Lora-Regular.ttf);
+}
+
+@font-face {
+  font-family: lora-bold;
+  src: url(../assets/fonts/Lora/static/Lora-Bold.ttf);
+}
+
+@font-face {
+  font-family: poppins-regular;
+  src: url(../assets/fonts/Poppins/Poppins-Regular.ttf);
+}
+
+@font-face {
+  font-family: poppins-medium;
+  src: url(../assets/fonts/Poppins/Poppins-Medium.ttf);
+}
+
+@font-face {
+  font-family: poppins-bold;
+  src: url(../assets/fonts/Poppins/Poppins-Bold.ttf);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-lora-medium: lora-medium;
+  --font-lora-bold: lora-bold;
+  --font-lora-regular: lora-regular;
+  --font-poppins-regular: poppins-regular;
+  --font-poppins-medium: poppins-medium;
+  --font-poppins-bold: poppins-bold;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  overflow-x: hidden;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: lora-regular, serif;
+  font-size: 1.7rem;
+  line-height: 3rem;
+}
