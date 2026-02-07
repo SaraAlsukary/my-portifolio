@@ -1,40 +1,119 @@
-"use client";
+'use client'
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+const sections = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "portifolio", label: "Portfolio" },
+  { id: "contact", label: "Contact" },
+];
+
 const BurgerMenu = () => {
-    const [open, setOpen] = useState(false);
-    const [activeSection, setActiveSection] = useState<string>("");
+  const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
-    const pathname = usePathname();
-    const isHomePage = pathname === "/";
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
-    useEffect(() => {
-        if (!isHomePage) return;
+  useEffect(() => {
+    if (!isHomePage) return;
 
-        const hash = window.location.hash;
-        if (!hash) return;
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -40% 0px" }
+    );
 
-        const id = hash.replace("#", "");
-        setActiveSection(id);
+    document
+      .querySelectorAll("section[id]")
+      .forEach(section => observer.observe(section));
 
-     
-        const el = document.getElementById(id);
-        if (el) {
-            setTimeout(() => {
-                el.scrollIntoView({ behavior: "smooth" });
-            }, 50);
-        }
-    }, [isHomePage]);
+    return () => observer.disconnect();
+  }, [isHomePage]);
 
+  return (
+    <div className="relative w-full">
+      {/* Top bar */}
+      <div className="flex items-center gap-4">
+        {/* Burger Icon */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="relative h-8 w-8"
+          aria-label="Toggle menu"
+        >
+          <span
+            className={`absolute left-0 top-1/2 h-[2px] w-full bg-white transition
+              ${open ? "opacity-0" : "-translate-y-2"}`}
+          />
+          <span
+            className={`absolute left-0 top-1/2 h-[2px] w-full bg-white transition
+              ${open ? "rotate-45" : ""}`}
+          />
+          <span
+            className={`absolute left-0 top-1/2 h-[2px] w-full bg-white transition
+              ${open ? "-rotate-45" : "translate-y-2"}`}
+          />
+        </button>
 
-    useEffect(() => {
-        if (!isHomePage) return;
+        {/* Logo */}
+        <Link
+          href="/"
+          className="text-white font-bold text-lg tracking-widest"
+        >
+          SARA
+        </Link>
+      </div>
 
-        const sections = document.querySelectorAll("section[id]");
-        if (!sections.length) return;
+      {/* Navigation */}
+      <nav
+        className={`
+          absolute
+          left-0
+          top-full
+          w-full
+          bg-black
+          overflow-hidden
+          transition-[max-height]
+          duration-500
+          ${open ? "max-h-[300px] py-6" : "max-h-0"}
+        `}
+      >
+        <ul className="flex flex-col gap-4 px-6">
+          {sections.map(({ id, label }) => (
+            <li key={id}>
+              <Link
+                href={`/#${id}`}
+                onClick={() => setOpen(false)}
+                className={`
+                  block
+                  text-sm
+                  transition
+                  ${
+                    isHomePage && activeSection === id
+                      ? "text-[var(--primary-color)] pl-4"
+                      : "text-white hover:text-[var(--primary-color)]"
+                  }
+                `}
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  );
+};
+
+export default BurgerMenu;        if (!sections.length) return;
 
         const observer = new IntersectionObserver(
             (entries) => {
