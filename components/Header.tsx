@@ -1,28 +1,28 @@
 'use client'
 
-import { motion } from "framer-motion";
+import { containerVariants, fadeBottomSlide } from "@/utils/constant";
 import BurgerMenu from "./BurgerMenu";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const Header = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.2 });
+
   return (
     <motion.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.4 }}
-      className="fixed top-0 left-0 z-30 w-full"
+      ref={ref}
+      variants={containerVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "exit"}
+      className="fixed z-30"
     >
-      <div
-        className="
-          relative
-          bg-black
-          h-16
-          px-4
-          flex
-          items-center
-        "
+      <motion.div
+        variants={fadeBottomSlide}
+        className="bg-black w-55 h-16.5 pl-4 absolute top-0 left-8 lg:left-50 md:left-30"
       >
         <BurgerMenu />
-      </div>
+      </motion.div>
     </motion.header>
   );
 };
