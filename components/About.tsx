@@ -56,8 +56,8 @@ const About = () => {
                 <Button className="border-gray-800 border-2 w-full md:w-60">
                     <Link href='#contact'>Hire Me</Link>
                 </Button>
-               <Button className="bg-gray-800 border-gray-800 border-2 text-white w-full md:w-60">
-                    <Link href='/Sara-Alsukary-CV.pdf' >Download CV</Link>
+                <Button className="bg-gray-800 border-gray-800 border-2 text-white w-full md:w-60">
+                    <Link href='https://drive.google.com/file/d/1y4UPcDodrE08piwF91spPAA6cqpwDyEd/view?usp=sharing' target="_blank" >Download CV</Link>
                 </Button>
             </motion.div>
         </motion.section>
